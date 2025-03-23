@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  docscoop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./output:/app/output
+      - tor_data:/home/docscoop/.docscoop/tor_data
+    env_file:
+      - .env
+    command: ["--help"]
+    # Example commands (uncomment to use):
+    # command: ["https://example.com", "--depth", "2", "--output", "/app/output/results.csv"]
+    # command: ["https://example.com", "--anonymous", "--launch-tor", "--output", "/app/output/results.csv"]
+
+  # Optional: Use this service if you want a dedicated Tor service
+  # tor:
+  #   image: dperson/torproxy
+  #   ports:
+  #     - "9050:9050"  # SOCKS proxy
+  #     - "9051:9051"  # Control port
+  #   restart: unless-stopped
+
+volumes:
+  tor_data: 
